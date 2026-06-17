@@ -1,0 +1,26 @@
+{
+    "975da46300015e8854d702c1d4cf5cfa": {
+        "id": "975da46300015e8854d702c1d4cf5cfa",
+        "url": "https:\/\/php.net",
+        "title": "PHP",
+        "reading_time": "11 min"
+    },
+    "99999ebcfdb78df077ad2727fd00969f": {
+        "id": "99999ebcfdb78df077ad2727fd00969f",
+        "url": "https:\/\/google.com",
+        "title": "Google",
+        "reading_time": "6 min"
+    },
+    "e62e24467ebdddf3fe7cc0e6970f01af": {
+        "id": "e62e24467ebdddf3fe7cc0e6970f01af",
+        "url": "https:\/\/youtube.com",
+        "title": "YouTube",
+        "reading_time": "48 min"
+    },
+    "3097fca9b1ec8942c4305e550ef1b50a": {
+        "id": "3097fca9b1ec8942c4305e550ef1b50a",
+        "url": "https:\/\/github.com",
+        "title": "GitHub \u00b7 Change is constant. GitHub keeps you ahead. \u00b7 GitHub",
+        "reading_time": "82 min"
+    }
+}
