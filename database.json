@@ -2,8 +2,7 @@
     "975da46300015e8854d702c1d4cf5cfa": {
         "id": "975da46300015e8854d702c1d4cf5cfa",
         "url": "https:\/\/php.net",
-        "title": "PHP",
-        "reading_time": "11 min"
+        "title": "PHP"
     },
     "99999ebcfdb78df077ad2727fd00969f": {
         "id": "99999ebcfdb78df077ad2727fd00969f",
@@ -22,5 +21,30 @@
         "url": "https:\/\/github.com",
         "title": "GitHub \u00b7 Change is constant. GitHub keeps you ahead. \u00b7 GitHub",
         "reading_time": "82 min"
+    },
+    "859d7836100ff05d02dd676b92bf6afc": {
+        "id": "859d7836100ff05d02dd676b92bf6afc",
+        "url": "https:\/\/news.ycombinator.com",
+        "title": "Hacker News",
+        "reading_time": "3 min"
+    },
+    "aebf841ddb110a5ccf1bff763d5db858": {
+        "id": "aebf841ddb110a5ccf1bff763d5db858",
+        "url": "https:\/\/en.wikipedia.org\/wiki\/PHP",
+        "title": "Unknown Article",
+        "reading_time": "1 min"
+    },
+    "7b1c136f6e6cd8758a143475c6d62219": null,
+    "98268c8b7b5ffa52bd86ae65e97aca6a": {
+        "id": "98268c8b7b5ffa52bd86ae65e97aca6a",
+        "url": "https:\/\/www.php-fig.org",
+        "title": "PHP-FIG \u2014 PHP Framework Interop Group - PHP-FIG",
+        "reading_time": "2 min"
+    },
+    "d245406cb6c9f36be9064c92c34e12e1": {
+        "id": "d245406cb6c9f36be9064c92c34e12e1",
+        "url": "https:\/\/www.youtube.com",
+        "title": "YouTube",
+        "reading_time": "50 min"
     }
 }

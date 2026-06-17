@@ -1,9 +1,12 @@
 <?php
 declare(strict_types=1);
 
+use Elastic\Elasticsearch\ClientBuilder;
+
 class BookmarkEngine {
     private object $redis; 
     private string $dbPath;
+    private object $es;
 
     public function __construct(object $redis) {
         $this->redis = $redis;
@@ -12,6 +15,8 @@ class BookmarkEngine {
         if (!file_exists($this->dbPath)) {
             file_put_contents($this->dbPath, json_encode([]));
         }
+
+        $this->es = ClientBuilder::create()->build();
     }
 
     public function getOrAdd(string $url): array {
@@ -26,34 +31,77 @@ class BookmarkEngine {
         }
 
         // 2. Cache Miss: Scrape data live from the web
-        $html = @file_get_contents($url);
+        $context = stream_context_create([
+            'http' => [
+                'header' => "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36\r\n"
+            ]
+        ]);
+
+        $html = @file_get_contents($url, false, $context);
         $title = 'Unknown Article';
-        $readingTime = '1';
 
         if ($html) {
-            preg_match("/<title>(.*)<\/title>/i", $html, $matches);
-            $title = isset($matches[1]) ? trim($matches[1]) : 'Untitled';
+            preg_match("/<title>(.*)<\/title>/is", $html, $matches);
+            $title = isset($matches[1]) ? trim(preg_replace('/\s+/', ' ', $matches[1])) : 'Untitled';
             $wordCount = str_word_count(strip_tags($html));
-            $readingTime = (string)max(1, (int)ceil($wordCount / 200)); 
         }
 
         $bookmarkData = [
             'id' => $id,
             'url' => $url,
             'title' => $title,
-            'reading_time' => $readingTime . ' min'
         ];
 
-        // 3. Save to Storage (JSON File)
+        // 3. Save to Permanent Storage (JSON File)
         $db = json_decode(file_get_contents($this->dbPath), true);
         $db[$id] = $bookmarkData;
         file_put_contents($this->dbPath, json_encode($db, JSON_PRETTY_PRINT));
 
-        // 4. Save to Redis Cache for next time 
+        // 4. Save to Elasticsearch for Text Searching
+        try {
+            $this->es->index([
+                'index' => 'bookmarks',
+                'id'    => $id,
+                'body'  => $bookmarkData
+            ]);
+        } catch (Exception $e) {
+            echo "\n[ES Indexing Error]: " . $e->getMessage() . "\n";
+        }
+
+        // 5. Save to Redis Cache for next time 
         $this->redis->hmset($cacheKey, $bookmarkData);
         $this->redis->expire($cacheKey, 3600);
 
         $bookmarkData['source'] = 'Cache Miss (Fresh Scrape)';
         return $bookmarkData;
+    }
+
+    public function searchBookmarks(string $keyword): array {
+        $params = [
+            'index' => 'bookmarks',
+            'body'  => [
+                'query' => [
+                    'match' => [
+                        'title' => [
+                            'query' => $keyword,
+                            'fuzziness' => 'AUTO'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        try {
+            $response = $this->es->search($params);
+            $hits = $response['hits']['hits'];
+            
+            $results = [];
+            foreach ($hits as $hit) {
+                $results[] = $hit['_source'];
+            }
+            return $results;
+        } catch (Exception $e) {
+            return [];
+        }
     }
 }
