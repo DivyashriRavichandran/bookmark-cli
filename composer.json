@@ -3,6 +3,21 @@
     "description": "A fast and private PHP command-line tool to save, index, and search your favorite web pages entirely from your terminal.",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "bookmark",
+        "cli",
+        "terminal",
+        "redis",
+        "elasticsearch",
+        "indexing",
+        "scraper"
+    ],
+    "authors": [
+        {
+            "name": "Divyashri Ravichandran",
+            "role": "Developer"
+        }
+    ],
     "bin": [
         "bookmark"
     ],
@@ -11,13 +26,26 @@
             "App\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
+        "php": "^8.2",
         "elasticsearch/elasticsearch": "^9.4",
-        "predis/predis": "^3.5"
+        "predis/predis": "^3.5",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
     },
     "config": {
         "allow-plugins": {
             "php-http/discovery": true
-        }
-    }
+        },
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }
