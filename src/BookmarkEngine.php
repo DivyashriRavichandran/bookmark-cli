@@ -40,11 +40,12 @@ class BookmarkEngine {
         $html = @file_get_contents($url, false, $context);
         $title = 'Unknown Article';
 
-        if ($html) {
-            preg_match("/<title>(.*)<\/title>/is", $html, $matches);
+       if ($html) {
+            preg_match("/<title>(.*?)<\/title>/is", $html, $matches);
             
             if (isset($matches[1])) {
-                $cleanTitle = trim(preg_replace('/\s+/', ' ', $matches[1]));
+                $decodedTitle = html_entity_decode($matches[1], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                $cleanTitle = trim(preg_replace('/[\s\x{00A0}]+/u', ' ', $decodedTitle));
                 // Truncate to 60 characters max
                 $title = mb_strimwidth($cleanTitle, 0, 60, '...');
             } else {
