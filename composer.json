@@ -1,6 +1,6 @@
 {
     "name": "divyashriravichandran/bookmark-cli",
-    "description": "A PHP command-line tool for saving and indexing webpages. Features high-speed lookups via a Redis RAM cache, falling back to real-time HTML scraping, persistent JSON storage, and Elasticsearch indexing on a cache miss.",
+    "description": "A fast and private PHP command-line tool to save, index, and search your favorite web pages entirely from your terminal.",
     "type": "library",
     "license": "MIT",
     "bin": [
