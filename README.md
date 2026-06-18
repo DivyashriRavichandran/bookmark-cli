@@ -19,7 +19,7 @@ A fast PHP command-line tool to save, index, and search your favourite web pages
 
 1. Install globally via Composer using the official **Packagist Registry Listing**:
 ```
-composer global require divyashriravichandran/bookmark-cli:dev-main
+composer global require divyashriravichandran/bookmark-cli:1.0
 ```
 
 2. **Update your system PATH:** 
