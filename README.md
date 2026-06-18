@@ -2,6 +2,9 @@
 
 A fast PHP command-line tool to save, index, and search your favourite web pages entirely from your terminal.
 
+<img width="2000" height="1120" alt="group_14" src="https://github.com/user-attachments/assets/e75f898f-6894-45c9-82d5-5b205b1aeeeb" />
+
+
 ## ✨ Features
 - **Instant Search:** 1-2ms search responses using a local Redis cache.
 - **Smart Scraping:** Automatically crawls and extracts HTML from unindexed sites on cache misses
