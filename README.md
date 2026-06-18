@@ -2,12 +2,10 @@
 
 A fast PHP command-line tool to save, index, and search your favourite web pages entirely from your terminal.
 
-## Key Architecture Benefits
-- Zero Latency Lookups: Instant 1-2ms search responses powered directly by a local Redis RAM execution layer.
-
-- Smart Fallbacks: Dynamically crawls unindexed targets using a local raw HTML scraper if a cache miss happens.
-
-- Persistent Search Space: Keeps structured index collections mapped safely to local file storage and an Elasticsearch engine instance for fuzzy text parsing
+## ✨ Features
+- **Instant Search:** 1-2ms search responses using a local Redis cache.
+- **Smart Scraping:** Automatically crawls and extracts HTML from unindexed sites on cache misses
+- **Reliable Storage:** Keeps your data safe with local file storage and fuzzy text search via Elasticsearch.
 
 ## System Requirements
 * **PHP** 8.1 or higher
@@ -19,45 +17,42 @@ A fast PHP command-line tool to save, index, and search your favourite web pages
 
 ## 🛠️ Installation
 
-You can install this engine globally from any terminal workspace using the official **Packagist Registry Listing**:
-
+1. Install globally via Composer using the official **Packagist Registry Listing**:
 ```
 composer global require divyashriravichandran/bookmark-cli:dev-main
 ```
 
-**Environment Configuration Path**
+2. **Update your system PATH:** 
 
-Ensure your system profile shell looks for global Composer binary variables. If you haven't yet, append this to your environment file (e.g., ~/.zshrc or ~/.bashrc):
+    Add the Composer global binaries to your shell profile (~/.zshrc or ~/.bashrc):
 
 ```
 export PATH="$HOME/.composer/vendor/bin:$PATH"
 ```
 
-## Usage
+## 🚀 Usage
 
-1. **Start Infrastructure Dependencies**
+1. **Start Services** 
 
-Spin up your local database engines before running queries:
-
+    Make sure your local database services are running:
 ```
-# Start Redis Engine
+# Start Redis
 brew services start redis
 
-# Start Elasticsearch Node
-elasticsearch
+# Start Elasticsearch
+ES_JAVA_HOME=$(brew --prefix)/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home elasticsearch
 ```
 
 2. **Available Terminal Commands**
 
-Once installed, use the short global binary name directly from any directory folder on your Mac:
-
+    Run these commands in your terminal:
 ```
-# Index and scrape a target webpage
-bookmark add https://example.com
+# Add and index a webpage
+bookmark add <website-url>
 
-# Perform a high-speed fuzzy query search
-bookmark search database
+# Search your bookmarks using fuzzy matching
+bookmark search <keyword>
 
-# Flush the local RAM data layer cache
+# Clear the Redis cache
 redis-cli flushall
 ```

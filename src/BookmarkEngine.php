@@ -42,10 +42,17 @@ class BookmarkEngine {
 
         if ($html) {
             preg_match("/<title>(.*)<\/title>/is", $html, $matches);
-            $title = isset($matches[1]) ? trim(preg_replace('/\s+/', ' ', $matches[1])) : 'Untitled';
+            
+            if (isset($matches[1])) {
+                $cleanTitle = trim(preg_replace('/\s+/', ' ', $matches[1]));
+                // Truncate to 60 characters max
+                $title = mb_strimwidth($cleanTitle, 0, 60, '...');
+            } else {
+                $title = 'Untitled';
+            }
+
             $wordCount = str_word_count(strip_tags($html));
         }
-
         $bookmarkData = [
             'id' => $id,
             'url' => $url,
@@ -68,11 +75,11 @@ class BookmarkEngine {
             echo "\n[ES Indexing Error]: " . $e->getMessage() . "\n";
         }
 
-        // 5. Save to Redis Cache for next time 
+        // 5. Save to Redis Cache for next search 
         $this->redis->hmset($cacheKey, $bookmarkData);
         $this->redis->expire($cacheKey, 3600);
 
-        $bookmarkData['source'] = 'Cache Miss (Fresh Scrape)';
+        $bookmarkData['source'] = 'Cache Miss (Scraped)';
         return $bookmarkData;
     }
 
