@@ -1,10 +1,10 @@
 {
     "name": "divyashriravichandran/bookmark-cli",
-    "description": "A high-performance CLI bookmark indexer.",
+    "description": "A PHP command-line tool for saving and indexing webpages. Features high-speed lookups via a Redis RAM cache, falling back to real-time HTML scraping, persistent JSON storage, and Elasticsearch indexing on a cache miss.",
     "type": "library",
     "license": "MIT",
     "bin": [
-        "bookmarks.php"
+        "cli.php"
     ],
     "autoload": {
         "psr-4": {

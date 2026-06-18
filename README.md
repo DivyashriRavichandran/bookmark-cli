@@ -1,17 +1,7 @@
 # Bookmark CLI
 
-A lightning-fast Command Line Interface (CLI) tool to scrape, cache, index, and search web bookmarks. Built with PHP, powered by Redis for sub-millisecond caching, and Elasticsearch for fuzzy full-text search.
+A PHP command-line tool for saving and indexing webpages. Features high-speed lookups via a Redis RAM cache, falling back to real-time HTML scraping, persistent JSON storage, and Elasticsearch indexing on a cache miss.
 
----
-
-## Features
-* **Smart Scraping:** Live scraping with custom browser headers to prevent getting blocked by modern sites.
-* **Dual-Layer Storage:** Persistent backups saved locally to a JSON file structure.
-* **Hybrid Database Strategy:**
-  * **Redis (RAM Cache):** Delivers lightning-fast `Cache Hit` reads in under 3 milliseconds.
-  * **Elasticsearch (Search Index):** Provides full-text keyword indexing with built-in typo tolerance (fuzziness).
-
----
 
 ## System Requirements
 * **PHP** 8.1 or higher
@@ -25,6 +15,7 @@ A lightning-fast Command Line Interface (CLI) tool to scrape, cache, index, and 
 
 
 ```
+brew services start redis
 ES_JAVA_HOME=$(brew --prefix)/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home elasticsearch
 ```
 
